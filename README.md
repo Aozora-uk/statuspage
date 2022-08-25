@@ -1,3 +1,7 @@
+### notes
+
+Please DO NOT run this program on your local environment, because this overrides git setting.
+
 [![Health Check](../../actions/workflows/health-check.yml/badge.svg)](../../actions/workflows/health-check.yml)
 
 # Statsig's Open-Source Status Page
