@@ -1,3 +1,5 @@
+# Please Do not run this script on your local environment, because this script overrides your git setting.
+
 # In the original repository we'll just print the result of status checks,
 # without committing. This avoids generating several commits that would make
 # later upstream merges messy for anyone who forked us.
@@ -10,6 +12,7 @@ fi
 
 KEYSARRAY=()
 URLSARRAY=()
+METHODSARRAY=()
 
 urlsConfig="./urls.cfg"
 echo "Reading $urlsConfig"
@@ -19,6 +22,7 @@ do
   IFS='=' read -ra TOKENS <<< "$line"
   KEYSARRAY+=(${TOKENS[0]})
   URLSARRAY+=(${TOKENS[1]})
+  METHODSARRAY+=(${TOKENS[2]})
 done < "$urlsConfig"
 
 echo "***********************"
@@ -30,11 +34,13 @@ for (( index=0; index < ${#KEYSARRAY[@]}; index++))
 do
   key="${KEYSARRAY[index]}"
   url="${URLSARRAY[index]}"
-  echo "  $key=$url"
+  method="${METHODSARRAY[index]}"
+  echo "  $method $key=$url"
 
   for i in 1 2 3 4; 
   do
-    response=$(curl --write-out '%{http_code}' --silent --output /dev/null $url)
+    response=$(curl --write-out '%{http_code}' --silent --output /dev/null $url -X $method)
+    echo Response is $response
     if [ "$response" -eq 200 ] || [ "$response" -eq 202 ] || [ "$response" -eq 301 ] || [ "$response" -eq 302 ] || [ "$response" -eq 307 ]; then
       result="success"
     else
@@ -43,6 +49,7 @@ do
     if [ "$result" = "success" ]; then
       break
     fi
+    echo Retrying...
     sleep 5
   done
   dateTime=$(date +'%Y-%m-%d %H:%M')

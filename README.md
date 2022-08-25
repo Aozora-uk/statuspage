@@ -1,3 +1,7 @@
+### notes
+
+Please DO NOT run this program on your local environment, because this overrides git setting.
+
 [![Health Check](../../actions/workflows/health-check.yml/badge.svg)](../../actions/workflows/health-check.yml)
 
 # Statsig's Open-Source Status Page
@@ -14,8 +18,8 @@ We tried various Status Pages out there, and built this as a fun little hobby pr
 2. Update `urls.cfg` to include your urls.
 
 ```cfg
-key1=https://example.com
-key2=https://statsig.com
+key1=https://example.com=HEAD
+key2=https://statsig.com=GET
 ```
 
 3. Update `index.html` and change the title.
