@@ -14,8 +14,8 @@ We tried various Status Pages out there, and built this as a fun little hobby pr
 2. Update `urls.cfg` to include your urls.
 
 ```cfg
-key1=https://example.com
-key2=https://statsig.com
+key1=https://example.com=HEAD
+key2=https://statsig.com=GET
 ```
 
 3. Update `index.html` and change the title.
